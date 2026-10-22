@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Courier; -webkit-text-stroke: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Courier; -webkit-text-stroke: #000000; min-height: 14.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Courier; color: #094fd1; -webkit-text-stroke: #000000}
+    span.s1 {font-kerning: none}
+    span.s2 {font-kerning: none; color: #000000}
+    span.s3 {text-decoration: underline ; font-kerning: none}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
+<p class="p1"><span class="s1">&lt;html lang="hi"&gt;</span></p>
+<p class="p1"><span class="s1">&lt;head&gt;</span></p>
+<p class="p1"><span class="s1">  &lt;meta charset="UTF-8"&gt;</span></p>
+<p class="p1"><span class="s1">  &lt;title&gt;OPD Patient Queue Display&lt;/title&gt;</span></p>
+<p class="p1"><span class="s1">  &lt;style&gt;</span></p>
+<p class="p1"><span class="s1">    * { box-sizing: border-box; margin: 0; padding: 0; }</span></p>
+<p class="p1"><span class="s1">    body {</span></p>
+<p class="p1"><span class="s1">      background-color: #0b192c;</span></p>
+<p class="p1"><span class="s1">      color: #ffffff;</span></p>
+<p class="p1"><span class="s1">      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;</span></p>
+<p class="p1"><span class="s1">      height: 100vh;</span></p>
+<p class="p1"><span class="s1">      display: flex;</span></p>
+<p class="p1"><span class="s1">      flex-direction: column;</span></p>
+<p class="p1"><span class="s1">      overflow: hidden;</span></p>
+<p class="p1"><span class="s1">      user-select: none;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">    header {</span></p>
+<p class="p1"><span class="s1">      background: #1e3e62;</span></p>
+<p class="p1"><span class="s1">      padding: 18px 24px;</span></p>
+<p class="p1"><span class="s1">      text-align: center;</span></p>
+<p class="p1"><span class="s1">      border-bottom: 4px solid #f97316;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">    header h1 {</span></p>
+<p class="p1"><span class="s1">      font-size: 2.8vw;</span></p>
+<p class="p1"><span class="s1">      letter-spacing: 1px;</span></p>
+<p class="p1"><span class="s1">      margin-bottom: 6px;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">    header p {</span></p>
+<p class="p1"><span class="s1">      font-size: 1.4vw;</span></p>
+<p class="p1"><span class="s1">      color: #cbd5e1;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">    main {</span></p>
+<p class="p1"><span class="s1">      flex: 1;</span></p>
+<p class="p1"><span class="s1">      display: flex;</span></p>
+<p class="p1"><span class="s1">      padding: 24px 32px;</span></p>
+<p class="p1"><span class="s1">      gap: 32px;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">    .room-card {</span></p>
+<p class="p1"><span class="s1">      flex: 1;</span></p>
+<p class="p1"><span class="s1">      background: #162438;</span></p>
+<p class="p1"><span class="s1">      border: 3px solid #2d4564;</span></p>
+<p class="p1"><span class="s1">      border-radius: 20px;</span></p>
+<p class="p1"><span class="s1">      display: flex;</span></p>
+<p class="p1"><span class="s1">      flex-direction: column;</span></p>
+<p class="p1"><span class="s1">      align-items: center;</span></p>
+<p class="p1"><span class="s1">      padding: 24px;</span></p>
+<p class="p1"><span class="s1">      box-shadow: 0 10px 25px rgba(0,0,0,0.4);</span></p>
+<p class="p1"><span class="s1">      transition: all 0.3s ease;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">    .room-card.highlight {</span></p>
+<p class="p1"><span class="s1">      border-color: #22c55e;</span></p>
+<p class="p1"><span class="s1">      transform: scale(1.02);</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">    .room-badge {</span></p>
+<p class="p1"><span class="s1">      background: #f97316;</span></p>
+<p class="p1"><span class="s1">      color: #fff;</span></p>
+<p class="p1"><span class="s1">      font-size: 2vw;</span></p>
+<p class="p1"><span class="s1">      font-weight: 700;</span></p>
+<p class="p1"><span class="s1">      padding: 6px 28px;</span></p>
+<p class="p1"><span class="s1">      border-radius: 50px;</span></p>
+<p class="p1"><span class="s1">      margin-bottom: 12px;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">    .doctor-name {</span></p>
+<p class="p1"><span class="s1">      font-size: 2vw;</span></p>
+<p class="p1"><span class="s1">      font-weight: 600;</span></p>
+<p class="p1"><span class="s1">      color: #93c5fd;</span></p>
+<p class="p1"><span class="s1">      margin-bottom: 24px;</span></p>
+<p class="p1"><span class="s1">      text-align: center;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">    .serving-label {</span></p>
+<p class="p1"><span class="s1">      font-size: 1.6vw;</span></p>
+<p class="p1"><span class="s1">      color: #94a3b8;</span></p>
+<p class="p1"><span class="s1">      text-transform: uppercase;</span></p>
+<p class="p1"><span class="s1">      letter-spacing: 1px;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">    .token-display {</span></p>
+<p class="p1"><span class="s1">      font-size: 8vw;</span></p>
+<p class="p1"><span class="s1">      font-weight: 900;</span></p>
+<p class="p1"><span class="s1">      color: #ffffff;</span></p>
+<p class="p1"><span class="s1">      background: #0f172a;</span></p>
+<p class="p1"><span class="s1">      border: 4px solid #3b82f6;</span></p>
+<p class="p1"><span class="s1">      border-radius: 24px;</span></p>
+<p class="p1"><span class="s1">      width: 85%;</span></p>
+<p class="p1"><span class="s1">      text-align: center;</span></p>
+<p class="p1"><span class="s1">      padding: 10px 0;</span></p>
+<p class="p1"><span class="s1">      margin: 10px 0 20px;</span></p>
+<p class="p1"><span class="s1">      line-height: 1;</span></p>
+<p class="p1"><span class="s1">      text-shadow: 0 0 20px rgba(59, 130, 246, 0.5);</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">    .next-box {</span></p>
+<p class="p1"><span class="s1">      width: 85%;</span></p>
+<p class="p1"><span class="s1">      background: #1e293b;</span></p>
+<p class="p1"><span class="s1">      border-radius: 12px;</span></p>
+<p class="p1"><span class="s1">      padding: 12px;</span></p>
+<p class="p1"><span class="s1">      text-align: center;</span></p>
+<p class="p1"><span class="s1">      margin-bottom: 18px;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">    .next-label {</span></p>
+<p class="p1"><span class="s1">      font-size: 1.2vw;</span></p>
+<p class="p1"><span class="s1">      color: #94a3b8;</span></p>
+<p class="p1"><span class="s1">      margin-bottom: 4px;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">    .next-numbers {</span></p>
+<p class="p1"><span class="s1">      font-size: 2vw;</span></p>
+<p class="p1"><span class="s1">      font-weight: 700;</span></p>
+<p class="p1"><span class="s1">      color: #38bdf8;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">    .status-badge {</span></p>
+<p class="p1"><span class="s1">      margin-top: auto;</span></p>
+<p class="p1"><span class="s1">      font-size: 1.3vw;</span></p>
+<p class="p1"><span class="s1">      background: #14532d;</span></p>
+<p class="p1"><span class="s1">      color: #86efac;</span></p>
+<p class="p1"><span class="s1">      padding: 8px 24px;</span></p>
+<p class="p1"><span class="s1">      border-radius: 20px;</span></p>
+<p class="p1"><span class="s1">      font-weight: 600;</span></p>
+<p class="p1"><span class="s1">      display: flex;</span></p>
+<p class="p1"><span class="s1">      align-items: center;</span></p>
+<p class="p1"><span class="s1">      gap: 8px;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">    .pulse-dot {</span></p>
+<p class="p1"><span class="s1">      width: 12px;</span></p>
+<p class="p1"><span class="s1">      height: 12px;</span></p>
+<p class="p1"><span class="s1">      background: #22c55e;</span></p>
+<p class="p1"><span class="s1">      border-radius: 50%;</span></p>
+<p class="p1"><span class="s1">      animation: pulse 1.5s infinite;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">    @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">    /* Audio Enable Prompt */</span></p>
+<p class="p1"><span class="s1">    #audio-overlay {</span></p>
+<p class="p1"><span class="s1">      position: fixed; inset: 0;</span></p>
+<p class="p1"><span class="s1">      background: rgba(11, 25, 44, 0.96);</span></p>
+<p class="p1"><span class="s1">      display: flex; flex-direction: column;</span></p>
+<p class="p1"><span class="s1">      align-items: center; justify-content: center;</span></p>
+<p class="p1"><span class="s1">      z-index: 100; cursor: pointer; text-align: center;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">    #audio-overlay h2 { font-size: 3vw; color: #f97316; margin-bottom: 12px; }</span></p>
+<p class="p1"><span class="s1">    #audio-overlay p { font-size: 1.6vw; color: #cbd5e1; }</span></p>
+<p class="p1"><span class="s1">  &lt;/style&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
+<p class="p1"><span class="s1">&lt;body&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  &lt;!-- TV Click to Enable Audio (Required by LG webOS security) --&gt;</span></p>
+<p class="p1"><span class="s1">  &lt;div id="audio-overlay" onclick="enableAudioAndStart()"&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;h2&gt;🔊 टीवी पर आवाज़ चालू करें (Click to Enable Audio)&lt;/h2&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;p&gt;रिमोट का बीच वाला (OK) बटन दबाएं या स्क्रीन पर क्लिक करें&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1">  &lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  &lt;header&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;h1&gt;मरीज कतार (Patient Queue Display)&lt;/h1&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;p&gt;कृपया अपना टोकन नंबर आने पर संबंधित कक्ष में जाएं। (Please proceed when your token is called)&lt;/p&gt;</span></p>
+<p class="p1"><span class="s1">  &lt;/header&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  &lt;main&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;!-- OPD 1 --&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div class="room-card" id="card-opd1"&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;div class="room-badge"&gt;OPD 1&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;div class="doctor-name"&gt;Dr. AMIT CHOUKSEY&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;div class="serving-label"&gt;अभी चल रहा टोकन (Now Serving)&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;div class="token-display" id="token-opd1"&gt;--&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;div class="next-box"&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;div class="next-label"&gt;आगामी टोकन (Next in Queue)&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;div class="next-numbers" id="next-opd1"&gt;--&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;div class="status-badge"&gt;&lt;span class="pulse-dot"&gt;&lt;/span&gt;परामर्श जारी है (In Consultation)&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;/div&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">    &lt;!-- OPD 5 --&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;div class="room-card" id="card-opd5"&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;div class="room-badge"&gt;OPD 5&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;div class="doctor-name"&gt;Dr. RASHI RAI&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;div class="serving-label"&gt;अभी चल रहा टोकन (Now Serving)&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;div class="token-display" id="token-opd5"&gt;--&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;div class="next-box"&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;div class="next-label"&gt;आगामी टोकन (Next in Queue)&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">        &lt;div class="next-numbers" id="next-opd5"&gt;--&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">      &lt;div class="status-badge"&gt;&lt;span class="pulse-dot"&gt;&lt;/span&gt;परामर्श जारी है (In Consultation)&lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">    &lt;/div&gt;</span></p>
+<p class="p1"><span class="s1">  &lt;/main&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  &lt;audio id="chime-sound" preload="auto"&gt;</span></p>
+<p class="p3"><span class="s2">    &lt;source src="<a href="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3"><span class="s3">https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3</span></a>" type="audio/mpeg"&gt;</span></p>
+<p class="p1"><span class="s1">  &lt;/audio&gt;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">  &lt;script&gt;</span></p>
+<p class="p1"><span class="s1">    // Direct link to your Google Sheet data</span></p>
+<p class="p3"><span class="s2">    const CSV_URL = "<a href="https://docs.google.com/spreadsheets/d/1U_-WZn1fGXTPngtlEMYRA8a3bUIDMhlxvppxME6AsWQ/export?format=csv&amp;gid=0"><span class="s3">https://docs.google.com/spreadsheets/d/1U_-WZn1fGXTPngtlEMYRA8a3bUIDMhlxvppxME6AsWQ/export?format=csv&amp;gid=0</span></a>";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">    let lastToken1 = null;</span></p>
+<p class="p1"><span class="s1">    let lastToken5 = null;</span></p>
+<p class="p1"><span class="s1">    let audioAllowed = false;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">    function enableAudioAndStart() {</span></p>
+<p class="p1"><span class="s1">      const audio = document.getElementById("chime-sound");</span></p>
+<p class="p1"><span class="s1">      audio.play().then(() =&gt; {</span></p>
+<p class="p1"><span class="s1">        audio.pause();</span></p>
+<p class="p1"><span class="s1">        audio.currentTime = 0;</span></p>
+<p class="p1"><span class="s1">        audioAllowed = true;</span></p>
+<p class="p1"><span class="s1">        document.getElementById("audio-overlay").style.display = "none";</span></p>
+<p class="p1"><span class="s1">      }).catch(() =&gt; {</span></p>
+<p class="p1"><span class="s1">        audioAllowed = true;</span></p>
+<p class="p1"><span class="s1">        document.getElementById("audio-overlay").style.display = "none";</span></p>
+<p class="p1"><span class="s1">      });</span></p>
+<p class="p1"><span class="s1">      fetchQueueData();</span></p>
+<p class="p1"><span class="s1">      setInterval(fetchQueueData, 5000); // Checks every 5 seconds</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">    async function fetchQueueData() {</span></p>
+<p class="p1"><span class="s1">      try {</span></p>
+<p class="p1"><span class="s1">        const response = await fetch(CSV_URL + "&amp;t=" + new Date().getTime());</span></p>
+<p class="p1"><span class="s1">        const text = await response.text();</span></p>
+<p class="p1"><span class="s1">        const rows = parseCSV(text);</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">        const token1 = rows[6] ? rows[6][1]?.trim() : "--";</span></p>
+<p class="p1"><span class="s1">        const token5 = rows[6] ? rows[6][3]?.trim() : "--";</span></p>
+<p class="p1"><span class="s1">        const next1 = rows[7] ? rows[7][1]?.trim() : "--";</span></p>
+<p class="p1"><span class="s1">        const next5 = rows[7] ? rows[7][3]?.trim() : "--";</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">        if (lastToken1 !== null &amp;&amp; token1 !== lastToken1 &amp;&amp; token1 !== "--") {</span></p>
+<p class="p1"><span class="s1">          playAlert("card-opd1");</span></p>
+<p class="p1"><span class="s1">        }</span></p>
+<p class="p1"><span class="s1">        if (lastToken5 !== null &amp;&amp; token5 !== lastToken5 &amp;&amp; token5 !== "--") {</span></p>
+<p class="p1"><span class="s1">          playAlert("card-opd5");</span></p>
+<p class="p1"><span class="s1">        }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">        lastToken1 = token1;</span></p>
+<p class="p1"><span class="s1">        lastToken5 = token5;</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">        document.getElementById("token-opd1").innerText = token1;</span></p>
+<p class="p1"><span class="s1">        document.getElementById("token-opd5").innerText = token5;</span></p>
+<p class="p1"><span class="s1">        document.getElementById("next-opd1").innerText = next1;</span></p>
+<p class="p1"><span class="s1">        document.getElementById("next-opd5").innerText = next5;</span></p>
+<p class="p1"><span class="s1">      } catch (err) {</span></p>
+<p class="p1"><span class="s1">        console.error("Queue sync error:", err);</span></p>
+<p class="p1"><span class="s1">      }</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">    function playAlert(cardId) {</span></p>
+<p class="p1"><span class="s1">      if (audioAllowed) {</span></p>
+<p class="p1"><span class="s1">        const audio = document.getElementById("chime-sound");</span></p>
+<p class="p1"><span class="s1">        audio.currentTime = 0;</span></p>
+<p class="p1"><span class="s1">        audio.play().catch(e =&gt; console.log("Audio waiting for user click", e));</span></p>
+<p class="p1"><span class="s1">      }</span></p>
+<p class="p1"><span class="s1">      const card = document.getElementById(cardId);</span></p>
+<p class="p1"><span class="s1">      if (card) {</span></p>
+<p class="p1"><span class="s1">        card.classList.add("highlight");</span></p>
+<p class="p1"><span class="s1">        setTimeout(() =&gt; card.classList.remove("highlight"), 2000);</span></p>
+<p class="p1"><span class="s1">      }</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p2"><span class="s1"></span><br></p>
+<p class="p1"><span class="s1">    function parseCSV(str) {</span></p>
+<p class="p1"><span class="s1">      const arr = [];</span></p>
+<p class="p1"><span class="s1">      let quote = false;</span></p>
+<p class="p1"><span class="s1">      let row = 0, col = 0;</span></p>
+<p class="p1"><span class="s1">      for (let c = 0; c &lt; str.length; c++) {</span></p>
+<p class="p1"><span class="s1">        let cc = str[c], nc = str[c+1];</span></p>
+<p class="p1"><span class="s1">        arr[row] = arr[row] || [];</span></p>
+<p class="p1"><span class="s1">        arr[row][col] = arr[row][col] || '';</span></p>
+<p class="p1"><span class="s1">        if (cc === '"' &amp;&amp; quote &amp;&amp; nc === '"') { arr[row][col] += '"'; ++c; continue; }</span></p>
+<p class="p1"><span class="s1">        if (cc === '"') { quote = !quote; continue; }</span></p>
+<p class="p1"><span class="s1">        if (cc === ',' &amp;&amp; !quote) { ++col; continue; }</span></p>
+<p class="p1"><span class="s1">        if (cc === '\r' &amp;&amp; nc === '\n' &amp;&amp; !quote) { ++row; col = 0; ++c; continue; }</span></p>
+<p class="p1"><span class="s1">        if (cc === '\n' &amp;&amp; !quote) { ++row; col = 0; continue; }</span></p>
+<p class="p1"><span class="s1">        if (cc === '\r' &amp;&amp; !quote) { ++row; col = 0; continue; }</span></p>
+<p class="p1"><span class="s1">        arr[row][col] += cc;</span></p>
+<p class="p1"><span class="s1">      }</span></p>
+<p class="p1"><span class="s1">      return arr;</span></p>
+<p class="p1"><span class="s1">    }</span></p>
+<p class="p1"><span class="s1">  &lt;/script&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
+<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+</body>
+</html>
